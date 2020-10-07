@@ -1,0 +1,17 @@
+  - name: Create destination folder
+    become: true
+    file:
+         path: /project/
+         state: directory
+         mode: 0755
+
+  - name: Deploy Code
+    become: true
+    template:
+        src: "{{ PROJECT_ROOT }}/roles/aws/templates/app.py"
+        dest: /project/app.py
+
+  - name: Start web server
+    become: true
+    shell: FLASK_APP=/project/app.py nohup flask run --host=0.0.0.0 --port=80 &
+

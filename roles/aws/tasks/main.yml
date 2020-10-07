@@ -1,0 +1,8 @@
+- name: Playbook to create RDS endpoint  
+  include_tasks: aws-rds.yml
+
+- name: Pull code and modify it, also restore DB
+  include_tasks: git.yml
+
+- name: Create EC2 instances 
+  include_tasks: aws-ec2.yml  

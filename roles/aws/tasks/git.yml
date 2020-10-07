@@ -1,0 +1,43 @@
+  - name: Clone code
+    git:
+      repo: "{{ repo }}"
+      dest: "{{ checkout_folder }}"
+    delegate_to: localhost
+
+
+  - name: Copy app.py to templates
+    copy:
+      src: "{{ checkout_folder }}/Sample\ Web\ Application/app.py"
+      dest: "{{ PROJECT_ROOT }}/roles/aws/templates/app.py"
+    delegate_to: localhost
+
+
+  - name: Fetch DB endpoint
+    rds_instance_facts:
+        db_instance_identifier: "{{ RDS_Instance_Name }}"
+        region: "{{ region }}"
+    register: rds_facts
+
+
+  - name: Modify mysql details to match that of project
+    replace:
+      path: "{{ PROJECT_ROOT }}/roles/aws/templates/app.py" 
+      regexp: "{{ item.From }}"
+      replace: "{{ item.To }}"
+      after: '# MySQL configurations'
+    with_items:
+      - { From: 'db_user', To: '{{ RDS_DB_Username }}' }
+      - { From: 'Passw0rd', To: '{{ RDS_DB_Password }}' }
+      - { From: 'employee_db', To: '{{ RDS_DB_Name }}' }
+      - { From: 'localhost', To: '{{ rds_facts.instances[0].endpoint.address }}' }
+
+     
+  - name: Restore mysqldb
+    mysql_db:
+          login_host: "{{ rds_facts.instances[0].endpoint.address }}"
+          login_password: "{{ RDS_DB_Password }}"
+          login_user: "{{ RDS_DB_Username }}"
+          name: "{{ RDS_DB_Name }}"
+          state: import
+          target: "{{ DB_Dump }}"
+    register: sql_query_output

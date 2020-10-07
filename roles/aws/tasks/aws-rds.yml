@@ -1,0 +1,17 @@
+- name: Create RDS instance
+  rds:
+        command: create
+        instance_name: "{{ RDS_Instance_Name }}"
+        db_engine: MySQL
+        size: 10
+        instance_type: "{{ RDS_Instance_Type }}"
+        db_name: "{{ RDS_DB_Name }}"
+        username: "{{ RDS_DB_Username }}"
+        password: "{{ RDS_DB_Password }}"
+      #  security_groups: "{{ RDS_sec_grp }}"
+        wait: yes
+        region: "{{ region }}"
+  register: rds_output
+
+- debug:
+      msg: "The new db endpoint is {{ rds_output.instance.endpoint }}"

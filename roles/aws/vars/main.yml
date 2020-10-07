@@ -1,0 +1,31 @@
+---
+# vars file for aws
+ # Ec2 sshkey, security group and instance creation variable
+ #
+    ec2_key: kodekloud_key
+    ec2_ami: ami-09b89ad3c5769cca2
+    instance_type: t2.micro
+    subnet_id:  subnet-f285da9b
+    vpc_id: vpc-4b6d3823
+    region: eu-west-2
+    sec_group: webserver
+    sec_group_desc: Security Group for EC2 WebServers
+    Tag_Name: Webserver
+    hostpath: /home/ansible/kodekloud_project/inventory.txt
+    hoststring: "ansible_ssh_user=ec2-user ansible_ssh_private_key_file={{ PROJECT_ROOT }}/aws-private.pem"
+    LB_Name: kodekloudlb
+
+    # RDS Configuration Variables
+    #
+
+    RDS_Instance_Name: kodekloud
+    RDS_Instance_Type: db.t2.micro
+    RDS_DB_Name: kodekloud_db
+    RDS_DB_Username: kodekloud_dbuser
+    RDS_DB_Password: kodekloud_admin123#    
+
+    # Git Details
+    repo: https://github.com/divineprad/Sample_Web_App.git
+    checkout_folder: /home/ansible/kodekloud_project/code
+    DB_Dump: /home/ansible/kodekloud_project/code/db.sql
+ 

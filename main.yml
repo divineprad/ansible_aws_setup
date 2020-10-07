@@ -1,0 +1,21 @@
+- name: Create a multi tier web application using ansible on aws
+
+  hosts: localhost
+  roles:
+          - aws
+
+
+- name: Deploy code on EC2 instances
+  hosts: tag_Name_Webserver
+  become: true
+  remote_user: ec2-user
+   
+  roles:
+          - webapp
+
+
+- name: Create LoadBalancer and attach instances
+  hosts: localhost
+  roles:
+          - loadbalancer
+

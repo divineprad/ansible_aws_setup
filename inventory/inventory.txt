@@ -1,0 +1,6 @@
+localhost ansible_host=127.0.0.1 ansible_connection=local
+
+[webservers]
+18.134.14.153 ansible_ssh_user=ec2-user ansible_ssh_private_key_file=/home/ansible/kodekloud_project/aws-private.pem
+18.134.14.187 ansible_ssh_user=ec2-user ansible_ssh_private_key_file=/home/ansible/kodekloud_project/aws-private.pem
+

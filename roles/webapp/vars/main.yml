@@ -1,0 +1,6 @@
+---
+# vars file for webapp
+
+
+repo: https://github.com/divineprad/Sample_Web_App.git
+checkout_folder: /home/ansible/kodekloud_project/code
