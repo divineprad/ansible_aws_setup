@@ -77,8 +77,6 @@ The group_vars/all contains all project variables and since it contains some sen
     sec_group: # Security group of the EC2 instances
     sec_group_desc: # Description of Security Group for EC2 WebServers
     Tag_Name: Webserver
-  # hostpath: /home/ansible/kodekloud_project/inventory.txt     (was not used)
-  #  hoststring: "ansible_ssh_user=ec2-user ansible_ssh_private_key_file={{ PROJECT_ROOT }}/aws-private.pem"   (was not used)
     LB_Name: # Name of loadbalancer
 
 
